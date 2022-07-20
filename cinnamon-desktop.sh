@@ -221,7 +221,7 @@ For your convienience, if flatpak is installed, this script will automatically i
 echo "vm.swappiness = 10" | sudo tee /etc/sysctl.d/99-swappiness.conf >/dev/null # We want vm.swappiness at this value, so that swap is only used if the system has 10% or lower available ram.
 
 sudo apt dist-upgrade -y
-sudo apt install -y cinnamon-core mate-themes cups cups-pdf hunspell pluma atril ristretto mpv vlc dconf-cli xdg-user-dirs-gtk system-config-printer fonts-liberation gnome-calculator unrar aspell-en aria2 $INSTALL "$NIR"
+sudo apt install -y cinnamon-core numix-icon-theme mate-themes cups cups-pdf hunspell pluma atril ristretto mpv vlc dconf-cli xdg-user-dirs-gtk system-config-printer fonts-liberation gnome-calculator unrar aspell-en aria2 $INSTALL "$NIR"
 if [ "$GS" = gnome-software ]; then
 	sudo apt install -y gdebi-core "$NIR"
 else
