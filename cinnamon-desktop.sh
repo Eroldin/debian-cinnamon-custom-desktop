@@ -253,7 +253,7 @@ if [ "$FLATPAK" != flatpak ]; then
 					sudo apt update
 				fi
 				sudo apt install -y $BROWSER "$NIR"
-			elif [ "$CPUAAMD" = GenuineIntel ]; then
+			elif [ "$CPUGI" = GenuineIntel ]; then
 				if [ ! -f /etc/apt/sources.list.d/vivaldi.list ]; then 
 					aria2c -d /tmp https://repo.vivaldi.com/archive/linux_signing_key.pub
 					sudo apt-key add /tmp/linux_signing_key.pub
@@ -296,7 +296,7 @@ else
 			sudo apt update
 		fi
 		sudo apt install -y vivaldi-stable "$NIR"
-	elif [ "$CPUAAMD" = GenuineIntel ]; then
+	elif [ "$CPUGI" = GenuineIntel ]; then
 		if [ ! -f /etc/apt/sources.list.d/vivaldi.list ]; then 
 			aria2c -d /tmp https://repo.vivaldi.com/archive/linux_signing_key.pub
 			sudo apt-key add /tmp/linux_signing_key.pub
@@ -333,7 +333,7 @@ if [ "$VBOX" = virtualbox-6.1 ]; then
 				sleep 3
 			fi
 		fi
-	elif [ "$CPUAAMD" = GenuineIntel ]; then
+	elif [ "$CPUGI" = GenuineIntel ]; then
 			if [ $(dpkg-query -W -f='${Status}' virtualbox-6.1 2>/dev/null | grep -c "ok installed" || true) -eq 0 ]; then
 			sudo apt install -y apt-transport-https
 			if [ "$(uname -r | grep -o 5.18 || true )" != 5.18  ]; then
