@@ -2,7 +2,6 @@
 
 set -e
 
-
 : '
 This script © 2022 by Erwin Oldebesten a.k.a. Eroldin is licensed under CC BY-SA 4.0
 The human readable license: https://creativecommons.org/licenses/by-sa/4.0/
@@ -11,9 +10,9 @@ The actual license: https://creativecommons.org/licenses/by-sa/4.0/legalcode
 
 
 #################################################################
-#	This script is meant to be run on a cli Debian Bullseye		#
-#		   x86_64 & ARM64 system with only the "main"			#
-# 			      branch as it's repository.					#
+#    This script is meant to be run on a cli Debian Bullseye    #
+#          x86_64 & ARM64 system with only the "main"           #
+#                 branch as it's repository.                    #
 #################################################################
 
 
