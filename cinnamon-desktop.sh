@@ -2,6 +2,7 @@
 
 set -e
 
+
 : '
 This script © 2022 by Erwin Oldebesten a.k.a. Eroldin is licensed under CC BY-SA 4.0
 The human readable license: https://creativecommons.org/licenses/by-sa/4.0/
