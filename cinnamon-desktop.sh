@@ -294,25 +294,27 @@ if [ "$FLATPAK" != flatpak ]; then
 		unset MAILC_FLAT
 	fi
 else
-	if [ "$CPUAAMD" = AuthenticAMD ]; then
-		if [ ! -f /etc/apt/sources.list.d/vivaldi.list ]; then 
-			aria2c -d /tmp https://repo.vivaldi.com/archive/linux_signing_key.pub
-			sudo apt-key add /tmp/linux_signing_key.pub
-			echo "deb [arch=amd64] https://repo.vivaldi.com/archive/deb/ stable main" | sudo tee /etc/apt/sources.list.d/vivaldi.list
-			sudo apt update
+	if [ $(echo $BROWSER | grep -o vivaldi-stable || true) ]; then
+		if [ "$CPUAAMD" = AuthenticAMD ]; then
+			if [ ! -f /etc/apt/sources.list.d/vivaldi.list ]; then 
+				aria2c -d /tmp https://repo.vivaldi.com/archive/linux_signing_key.pub
+				sudo apt-key add /tmp/linux_signing_key.pub
+				echo "deb [arch=amd64] https://repo.vivaldi.com/archive/deb/ stable main" | sudo tee /etc/apt/sources.list.d/vivaldi.list
+				sudo apt update
+			fi
+			sudo apt install -y vivaldi-stable "$NIR"
+		elif [ "$CPUGI" = GenuineIntel ]; then
+			if [ ! -f /etc/apt/sources.list.d/vivaldi.list ]; then 
+				aria2c -d /tmp https://repo.vivaldi.com/archive/linux_signing_key.pub
+				sudo apt-key add /tmp/linux_signing_key.pub
+				echo "deb [arch=amd64] https://repo.vivaldi.com/archive/deb/ stable main" | sudo tee /etc/apt/sources.list.d/vivaldi.list
+				sudo apt update
+			fi
+			sudo apt install -y vivaldi-stable "$NIR"
+		else
+			aria2c -d /tmp https://downloads.vivaldi.com/snapshot/install-vivaldi.sh
+			sudo sh /tmp/install-vivaldi --final
 		fi
-		sudo apt install -y vivaldi-stable "$NIR"
-	elif [ "$CPUGI" = GenuineIntel ]; then
-		if [ ! -f /etc/apt/sources.list.d/vivaldi.list ]; then 
-			aria2c -d /tmp https://repo.vivaldi.com/archive/linux_signing_key.pub
-			sudo apt-key add /tmp/linux_signing_key.pub
-			echo "deb [arch=amd64] https://repo.vivaldi.com/archive/deb/ stable main" | sudo tee /etc/apt/sources.list.d/vivaldi.list
-			sudo apt update
-		fi
-		sudo apt install -y vivaldi-stable "$NIR"
-	else
-		aria2c -d /tmp https://downloads.vivaldi.com/snapshot/install-vivaldi.sh
-		sudo sh /tmp/install-vivaldi --final
 	fi
 fi
 
