@@ -235,6 +235,12 @@ if [ "$WINE" = wine ]; then
 			sudo apt install -y wine wine32 wine64 libwine libwine:i386 fonts-wine mesa-vulkan-drivers libglx-mesa0:i386 mesa-vulkan-drivers:i386 libgl1-mesa-dri:i386 "$NIR"
 		fi
 	fi
+elif [ ! -z "${I386A+x}" ]; then
+	if [ "$CPUAAMD" = AuthenticAMD ]; then
+		sudo apt install -y libglx-mesa0:i386 libgl1-mesa-dri:i386 "$NIR"
+	elif [ "$CPUGI" = GenuineIntel ]; then
+		sudo apt install -y libglx-mesa0:i386 libgl1-mesa-dri:i386 "$NIR"
+	fi
 fi
 
 # This makes sure that if some flatpaks are installed, while flatpak wasn't specified, there wont be a mixup between apt and flatpak
@@ -249,7 +255,7 @@ if [ "$FLATPAK" != flatpak ]; then
 				if [ ! -f /etc/apt/sources.list.d/vivaldi.list ]; then 
 					aria2c -d /tmp https://repo.vivaldi.com/archive/linux_signing_key.pub
 					sudo apt-key add /tmp/linux_signing_key.pub
-					echo "deb https://repo.vivaldi.com/archive/deb/ stable main" | sudo tee /etc/apt/sources.list.d/vivaldi.list
+					echo "deb [arch=amd64] https://repo.vivaldi.com/archive/deb/ stable main" | sudo tee /etc/apt/sources.list.d/vivaldi.list
 					sudo apt update
 				fi
 				sudo apt install -y $BROWSER "$NIR"
@@ -257,7 +263,7 @@ if [ "$FLATPAK" != flatpak ]; then
 				if [ ! -f /etc/apt/sources.list.d/vivaldi.list ]; then 
 					aria2c -d /tmp https://repo.vivaldi.com/archive/linux_signing_key.pub
 					sudo apt-key add /tmp/linux_signing_key.pub
-					echo "deb https://repo.vivaldi.com/archive/deb/ stable main" | sudo tee /etc/apt/sources.list.d/vivaldi.list
+					echo "deb [arch=amd64] https://repo.vivaldi.com/archive/deb/ stable main" | sudo tee /etc/apt/sources.list.d/vivaldi.list
 					sudo apt update
 				fi
 				sudo apt install -y $BROWSER "$NIR"
@@ -292,7 +298,7 @@ else
 		if [ ! -f /etc/apt/sources.list.d/vivaldi.list ]; then 
 			aria2c -d /tmp https://repo.vivaldi.com/archive/linux_signing_key.pub
 			sudo apt-key add /tmp/linux_signing_key.pub
-			echo "deb https://repo.vivaldi.com/archive/deb/ stable main" | sudo tee /etc/apt/sources.list.d/vivaldi.list
+			echo "deb [arch=amd64] https://repo.vivaldi.com/archive/deb/ stable main" | sudo tee /etc/apt/sources.list.d/vivaldi.list
 			sudo apt update
 		fi
 		sudo apt install -y vivaldi-stable "$NIR"
@@ -300,7 +306,7 @@ else
 		if [ ! -f /etc/apt/sources.list.d/vivaldi.list ]; then 
 			aria2c -d /tmp https://repo.vivaldi.com/archive/linux_signing_key.pub
 			sudo apt-key add /tmp/linux_signing_key.pub
-			echo "deb https://repo.vivaldi.com/archive/deb/ stable main" | sudo tee /etc/apt/sources.list.d/vivaldi.list
+			echo "deb [arch=amd64] https://repo.vivaldi.com/archive/deb/ stable main" | sudo tee /etc/apt/sources.list.d/vivaldi.list
 			sudo apt update
 		fi
 		sudo apt install -y vivaldi-stable "$NIR"
