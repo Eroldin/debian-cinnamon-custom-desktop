@@ -235,7 +235,7 @@ if [ "$WINE" = wine ]; then
 			sudo apt install -y wine wine32 wine64 libwine libwine:i386 fonts-wine mesa-vulkan-drivers libglx-mesa0:i386 mesa-vulkan-drivers:i386 libgl1-mesa-dri:i386 "$NIR"
 		fi
 	fi
-elif [ ! -z "${I386A+x}" ]; then
+elif [ $I386 = i386-architecture ]; then
 	if [ "$CPUAAMD" = AuthenticAMD ]; then
 		sudo apt install -y libglx-mesa0:i386 libgl1-mesa-dri:i386 "$NIR"
 	elif [ "$CPUGI" = GenuineIntel ]; then
