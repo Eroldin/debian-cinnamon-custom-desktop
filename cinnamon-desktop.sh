@@ -323,23 +323,18 @@ if [ "$VBOX" = virtualbox-6.1 ]; then
 	if [ "$CPUAAMD" = AuthenticAMD ]; then
 			if [ $(dpkg-query -W -f='${Status}' virtualbox-6.1 2>/dev/null | grep -c "ok installed" || true) -eq 0 ]; then
 			sudo apt install -y apt-transport-https
-			if [ "$(uname -r | grep -o 5.18 || true )" != 5.18  ]; then
-				if [ ! -f /etc/apt/sources.list.d/virtualbox.list ]; then
-					aria2c -d /tmp https://www.virtualbox.org/download/oracle_vbox_2016.asc
-					aria2c -d /tmp https://download.virtualbox.org/virtualbox/6.1.34/Oracle_VM_VirtualBox_Extension_Pack-6.1.34.vbox-extpack
-					sudo gpg --dearmor --yes --output /usr/share/keyrings/oracle-virtualbox-2016.gpg /tmp/oracle_vbox_2016.asc
-					echo "deb [arch=amd64 signed-by=/usr/share/keyrings/oracle-virtualbox-2016.gpg] https://download.virtualbox.org/virtualbox/debian bullseye contrib" | sudo tee /etc/apt/sources.list.d/virtualbox.list >/dev/null
-					sudo apt update
-				fi
-				sudo apt install -y "$VBOX" "$NIR"
-				echo "y" | sudo VBoxManage extpack install /tmp/Oracle_VM_VirtualBox_Extension_Pack-6.1.34.vbox-extpack
-				sudo usermod "$USER" -aG vboxusers
-				echo ""; echo 'You have been added to the "vboxusers" group.'
-				sleep 3
-			else
-				echo ""; echo "Virtualbox currently does not run with the Linux 5.18 kernel,"; echo "so it won't be installed."
-				sleep 3
+			if [ ! -f /etc/apt/sources.list.d/virtualbox.list ]; then
+				aria2c -d /tmp https://www.virtualbox.org/download/oracle_vbox_2016.asc
+				aria2c -d /tmp https://download.virtualbox.org/virtualbox/6.1.34/Oracle_VM_VirtualBox_Extension_Pack-6.1.34.vbox-extpack
+				sudo gpg --dearmor --yes --output /usr/share/keyrings/oracle-virtualbox-2016.gpg /tmp/oracle_vbox_2016.asc
+				echo "deb [arch=amd64 signed-by=/usr/share/keyrings/oracle-virtualbox-2016.gpg] https://download.virtualbox.org/virtualbox/debian bullseye contrib" | sudo tee /etc/apt/sources.list.d/virtualbox.list >/dev/null
+				sudo apt update
 			fi
+			sudo apt install -y "$VBOX" "$NIR"
+			echo "y" | sudo VBoxManage extpack install /tmp/Oracle_VM_VirtualBox_Extension_Pack-6.1.34.vbox-extpack
+			sudo usermod "$USER" -aG vboxusers
+			echo ""; echo 'You have been added to the "vboxusers" group.'
+			sleep 3
 		fi
 	elif [ "$CPUGI" = GenuineIntel ]; then
 			if [ $(dpkg-query -W -f='${Status}' virtualbox-6.1 2>/dev/null | grep -c "ok installed" || true) -eq 0 ]; then
